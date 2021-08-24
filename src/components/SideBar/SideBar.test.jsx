@@ -10,7 +10,7 @@ describe('<SideBar />', () => {
   
   beforeEach(() => {
     render(
-    <GlobalContext.Provider value={{state: {sideBar: true}, dispatch: toggleDarkTheme}}>
+    <GlobalContext.Provider value={{state: {sideBar: true, currentTheme: {id: 'dark'}}, dispatch: toggleDarkTheme}}>
       <SideBar />
     </GlobalContext.Provider>);
   });
