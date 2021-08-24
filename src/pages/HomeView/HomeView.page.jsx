@@ -23,13 +23,19 @@ const Heading = styled.p`
   font-weight: bold;
   font-size: 1.5rem;
   margin: 1rem 0 0 1rem;
+  color: ${props => props.theme.primaryTextColor};
 `;
 
-function HomeView({changeUrl, videos}) {
+function HomeView({changeUrl, videos, location}) {
 
   useEffect(() => {
-    changeUrl(`&`);
-  }, [changeUrl])
+    const searchTerm = new URLSearchParams(location.search).get("q");
+    if (searchTerm) {
+      changeUrl(`&q=${searchTerm}`);
+    } else {
+      changeUrl(`&`);
+    }
+  }, [changeUrl, location])
 
   return (
     <Wrapper>

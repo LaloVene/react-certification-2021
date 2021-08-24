@@ -10,28 +10,28 @@ const Element = styled.div`
   padding: 0.5rem;
 
   &:hover {
-    background-color: hsl(0, 0%, 92%);
+    background-color: ${props => props.theme.primaryBackgroundColor};
   }
 `;
 const Text = styled.p`
   margin: 0;
   margin-left: 0.5rem;
-  color: hsl(0, 0%, 50%);
+  color: ${props => props.theme.secondaryTextColor};
   font-weight: lighter;
 `;
 
 
-function SideBarOption(props) {
+function SideBarOption({children, onClick, icon}) {
 
-  const Icon = props.icon;
+  const Icon = icon;
   const style = {
     color: 'hsl(0, 0%, 75%)'
   };
 
   return (
-    <Element>
+    <Element onClick={onClick}>
       <Icon style={style} />
-      <Text>{props.children}</Text>
+      <Text>{children}</Text>
     </Element>
   );
 }

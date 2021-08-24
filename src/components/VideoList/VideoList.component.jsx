@@ -67,6 +67,7 @@ const Title = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: ${props => props.theme.primaryTextColor};
 `;
 const ChannelTitle = styled.p`
   margin: 0;
@@ -80,6 +81,7 @@ const ChannelTitle = styled.p`
   align-items: center;
   text-overflow: ellipsis;
   max-inline-size: 12.8rem;
+  color: ${props => props.theme.secondaryTextColor};
 `;
 const CheckIcon = styled(FaCheckCircle)`
   color: #c70d32;

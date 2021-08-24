@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import SearchInput from '../SearchInput/SearchInput.component';
 import styled, {css} from 'styled-components';
-import { Link } from "react-router-dom"; 
+import GlobalContext from "../../utils/state/GlobalContext";
+import { useHistory } from "react-router-dom";
 
 // ICONS
 import { HiMenuAlt1 } from 'react-icons/hi';
@@ -27,10 +28,8 @@ const Container = styled.div`
   }
 `;
 
-const logo_img = require('../../img/youtube-logo.png');
-
 const Logo = styled.div`
-  background-image: url(${logo_img});
+  background-image: url(${props => props.theme.logo});
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -64,8 +63,10 @@ const SearchContainer = styled.form`
 
 function Header(props) {
 
+  const {dispatch} = useContext(GlobalContext);
   const [isSearch, setIsSearch] = useState(false);
   const [searchText, setSearchText] = useState(null);
+  const history = useHistory();
 
   const toggleSearch = () => {setIsSearch(!isSearch)};
   const handleChange = (event) => setSearchText(event.target.value);
@@ -73,15 +74,27 @@ function Header(props) {
   const search = (event) => {
     event.preventDefault();
     if (!searchText) return;
+    history.push({
+      pathname: '/',
+      search: `?q=${encodeURIComponent(searchText)}`
+    })
     props.changeUrl(`&q=${searchText}`);
+  };
+
+  const toggleSideBar = () => {
+    dispatch({type: 'TOGGLE_SIDEBAR'});
+  };
+  const goHome = () => {
+    history.push({
+      pathname: '/',
+      search: ``
+    })
   };
 
   return (
     <Container>
-      <ToggleButton icon={HiMenuAlt1} />
-      <Link to="/">
-        <Logo isSearch={isSearch} data-testid="logo" />
-      </Link>
+      <ToggleButton onClick={toggleSideBar} icon={HiMenuAlt1} />
+      <Logo onClick={goHome} isSearch={isSearch} data-testid="logo" />
       <Wrapper isSearch={isSearch}>
         <SearchContainer onSubmit={search}>
           {isSearch &&

@@ -1,13 +1,13 @@
 ------------------------------|----------|----------|----------|----------|-------------------|
 File                          |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
 ------------------------------|----------|----------|----------|----------|-------------------|
-All files                     |      100 |      100 |      100 |      100 |                   |
+All files                     |    97.74 |    92.31 |    97.78 |    97.67 |                   |
  components/Header            |      100 |      100 |      100 |      100 |                   |
   Header.component.jsx        |      100 |      100 |      100 |      100 |                   |
  components/SearchInput       |      100 |      100 |      100 |      100 |                   |
   SearchInput.component.jsx   |      100 |      100 |      100 |      100 |                   |
- components/SideBar           |      100 |      100 |      100 |      100 |                   |
-  SideBar.component.jsx       |      100 |      100 |      100 |      100 |                   |
+ components/SideBar           |      100 |      100 |    83.33 |      100 |                   |
+  SideBar.component.jsx       |      100 |      100 |    83.33 |      100 |                   |
  components/SideBarOption     |      100 |      100 |      100 |      100 |                   |
   SideBarOption.component.jsx |      100 |      100 |      100 |      100 |                   |
  components/Tag               |      100 |      100 |      100 |      100 |                   |
@@ -27,4 +27,8 @@ All files                     |      100 |      100 |      100 |      100 |     
   index.js                    |        0 |        0 |        0 |        0 |                   |
  pages/HomeView               |      100 |      100 |      100 |      100 |                   |
   HomeView.page.jsx           |      100 |      100 |      100 |      100 |                   |
+ utils/hooks                  |    88.46 |       75 |      100 |       88 |                   |
+  useVideos.js                |    88.46 |       75 |      100 |       88 |          36,49,65 |
+ utils/state                  |      100 |      100 |      100 |      100 |                   |
+  GlobalContext.jsx           |      100 |      100 |      100 |      100 |                   |
 ------------------------------|----------|----------|----------|----------|-------------------|

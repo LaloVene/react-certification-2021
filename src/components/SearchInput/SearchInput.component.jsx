@@ -6,7 +6,8 @@ const Input = styled.input`
   height: 30px;
   margin: 0;
   margin-left: 1rem;
-  background: hsl(0, 0%, 95%);
+  background: ${props => props.theme.secondaryBackgroundColor};
+  color: ${props => props.theme.primaryTextColor};
   padding: 1rem;
   border-radius: 0.5rem;
   border: none;

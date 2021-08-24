@@ -12,6 +12,7 @@ const Title = styled.p`
   font-weight: bold;
   margin: 0;
   margin-bottom: 0.5rem;
+  color: ${props => props.theme.primaryTextColor};
 `;
 const Videos = styled.div`
   display: flex;

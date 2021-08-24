@@ -1,9 +1,9 @@
 import { useState, useEffect, useReducer } from 'react';
-import Data from '../../utils/related-videos.json'
+// import Data from '../../utils/related-videos.json'
 
 const SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=20';
 const VIDEO_URL = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&type=video';
-const API_KEY = 'some key';
+const API_KEY = process.env.REACT_APP_YOUTUBE_KEY;
 
 function useVideos() {
   const searchUrl = `${SEARCH_URL}&key=${API_KEY}`;
@@ -54,15 +54,14 @@ function useVideos() {
     
     async function fetchData() {
       // For test purposes
-      if (true) {
-        dispatch({ type: 'FETCH_SUCCESS', payload: Data });
-        return;
-      }
+      // if (true) {
+      //   dispatch({ type: 'FETCH_SUCCESS', payload: Data });
+      //   return;
+      // }
       dispatch({ type: 'FETCH_INIT' });
       try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (error) {
         dispatch({ type: 'FETCH_FAILURE' });

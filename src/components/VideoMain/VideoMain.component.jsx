@@ -16,11 +16,13 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 1.1rem;
   font-weight: bold;
+  color: ${props => props.theme.primaryTextColor};
 `;
 const Description = styled.p`
   font-size: 0.8rem;
   max-width: 50vw;
   word-wrap: break-word;
+  color: ${props => props.theme.secondaryTextColor};
   @media(max-width: 629px) {
     max-width: 100%;
   }
@@ -38,6 +40,7 @@ const TagTitle = styled.p`
   font-weight: 500;
   margin-top: 2rem;
   text-align: center;
+  color: ${props => props.theme.primaryTextColor};
 `;
 
 function VideoMain({video}) {
