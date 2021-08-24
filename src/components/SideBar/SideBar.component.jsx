@@ -7,7 +7,7 @@ import GlobalContext from "../../utils/state/GlobalContext";
 // ICONS
 import { RiUser3Fill, RiUserSharedFill, RiUserAddFill } from 'react-icons/ri';
 import { TiStarFullOutline } from 'react-icons/ti';
-import { IoSettingsSharp, IoMoon} from 'react-icons/io5';
+import { IoSettingsSharp, IoMoon, IoSunnySharp } from 'react-icons/io5';
 
 const Container = styled.div`
   width: 20rem;
@@ -57,14 +57,17 @@ function SideBar() {
   const {state, dispatch} = useContext(GlobalContext);
 
   const toggleDarkTheme = () => {
-    dispatch({type: 'TOGGLE_THEME'});
+    const actionType = state.currentTheme.id === 'dark' ? 'LIGHT_THEME' : 'DARK_THEME';
+    const theme = state.currentTheme.id === 'dark' ? 'light' : 'dark';
+    localStorage.setItem("theme", JSON.stringify(theme));
+    dispatch({type: actionType});
   };
 
   const Settings = [
   {
     id: 1,
-    name: 'Dark Theme',
-    icon: IoMoon,
+    name: state.currentTheme.id === 'dark' ? 'Dark Theme' : 'Light Theme',
+    icon: state.currentTheme.id === 'dark' ? IoMoon : IoSunnySharp,
     onClick: toggleDarkTheme,
   },
   {

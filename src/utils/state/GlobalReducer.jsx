@@ -7,24 +7,17 @@ export const initialState = {
 
 const GlobalReducer = (state, action) => {
   switch (action.type) {
-    // case "ADD_EMPLOYEE": {
-    //   const employees = state.employees.concat(action.payload);
-    //   localStorage.setItem("employees", JSON.stringify(employees));
-    //   return {
-    //     ...state,
-    //     employees
-    //   };
-    // }
     case "TOGGLE_SIDEBAR": {
       return {
         ...state,
         sideBar: !state.sideBar,
       };
     }
-    case "TOGGLE_THEME": {
-      const newThemeKey = state.currentTheme.id === "dark" ? "light" : "dark";
-      localStorage.setItem("theme", JSON.stringify(newThemeKey));
-      return { ...state, currentTheme: theme[newThemeKey] };
+    case "LIGHT_THEME": {
+      return { ...state, currentTheme: theme["light"] };
+    }
+    case "DARK_THEME": {
+      return { ...state, currentTheme: theme["dark"] };
     }
     case "LOAD_FROM_STORAGE": {
       const newThemeKey = JSON.parse(localStorage.getItem("theme")) || "light";
