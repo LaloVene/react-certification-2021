@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import VideList from '../VideoList';
+import VideoList from '../VideoList';
 
 const Container = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1320px) {
+    max-width: 20rem;
+  }
 `;
 const Title = styled.p`
   font-size: 1.5rem;
@@ -21,41 +24,44 @@ const Videos = styled.div`
   align-items: center;
 `;
 
-function RelatedVideos(props) {
+function RelatedVideos({videos, isFav}) {
 
   return (
     <Container>
       <Title>Up next</Title>
-      {
-        props.videos?.items[0]?.snippet &&
+
         <Videos>
-          {props.videos?.items?.map((video, index) => {
+          {videos?.items?.map((video) => {
             let id = '';
             let title = '';
             let channelTitle = '';
             let thumbnail = '';
-            try {
-              id = video.id.videoId;
-              title = video.snippet.title;
-              channelTitle = video.snippet.channelTitle;
-              thumbnail = video.snippet.thumbnails.medium.url;
-            } catch {
-              return null;
+            if (isFav) {
+              ({id, title, channelTitle, thumbnail} = video);
+            } else {
+              try {
+                id = video.id.videoId;
+                title = video.snippet.title;
+                channelTitle = video.snippet.channelTitle;
+                thumbnail = video.snippet.thumbnails.medium.url;
+              } catch {
+                return null;
+              }
             }
 
             return (
-              <VideList
+              <VideoList
                 isRelated={true}
                 key={id}
                 id={id}
                 title={title}
                 thumbnail={thumbnail}
                 channelTitle={channelTitle}
+                isFav={isFav}
               />
             );
           })}
         </Videos>
-      }
     </Container>
   );
 }

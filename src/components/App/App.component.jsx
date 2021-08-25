@@ -14,6 +14,7 @@ import HomeView from '../../pages/HomeView';
 import Video from '../../pages/Video';
 import Login from '../../pages/Login';
 import Favorites from '../../pages/Favorites';
+import FavoriteVideo from '../../pages/FavoriteVideo';
 import Private from '../../pages/Private';
 
 const Layout = styled.div`
@@ -23,16 +24,19 @@ const Layout = styled.div`
 const Main = styled.div`
   width: 100%;
   border-radius: 0 0 1rem 1rem;
-  background-color: ${props => props.theme.primaryBackgroundColor};
+  background-color: ${(props) => props.theme.primaryBackgroundColor};
   min-height: 100vh;
-  
+  overflow: hidden;
+
   @media (min-width: 1068px) {
     min-height: 85.5vh;
     border-radius: 1rem;
     margin: 4rem 4rem 4rem 0;
-    ${props => !props.sideBar && css`
-      margin: 4rem;
-  `}  
+    ${(props) =>
+      !props.sideBar &&
+      css`
+        margin: 4rem;
+      `}
   }
 `;
 
@@ -50,7 +54,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <GlobalContext.Provider value={{state, dispatch}}>
+        <GlobalContext.Provider value={{ state, dispatch }}>
           <ThemeProvider theme={currentTheme}>
             <Layout>
               <SideBar />
@@ -58,28 +62,44 @@ function App() {
                 <Header changeUrl={changeUrl} />
                 <Switch>
                   <Route
-                    exact path="/"
-                    render={(props) =>
+                    exact
+                    path="/"
+                    render={(props) => (
                       <HomeView
                         videos={data}
                         isLoading={isLoading}
                         isError={isError}
                         changeUrl={changeUrl}
-                        location={props.location}/>} />
+                        location={props.location}
+                      />
+                    )}
+                  />
                   <Route
-                    exact path="/watch/:id"
-                    render={(props) =>
+                    exact
+                    path="/watch/:id"
+                    render={(props) => (
                       <Video
                         videos={data}
                         isLoading={isLoading}
                         isError={isError}
                         changeUrl={changeUrl}
-                        {...props}/>} />
+                        {...props}
+                      />
+                    )}
+                  />
                   <Route path="/login">
                     <Login />
                   </Route>
                   <Private path="/favorites">
                     <Favorites />
+                  </Private>
+                  <Private path="/fav-video/:id">
+                    <FavoriteVideo
+                      videos={data}
+                      isLoading={isLoading}
+                      isError={isError}
+                      changeUrl={changeUrl}
+                    />
                   </Private>
                   <Route path="*">
                     <NotFound />

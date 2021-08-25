@@ -67,6 +67,7 @@ function Favorites() {
                   title={title}
                   thumbnail={thumbnail}
                   channelTitle={channelTitle}
+                  isFav
                 />
                 <Button onClick={() => removeFromFavorites(id)}> <MdDelete/> Remove</Button>
               </VideoContainer>

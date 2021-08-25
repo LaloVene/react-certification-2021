@@ -12,8 +12,12 @@ const Container = styled.div`
   max-width: 55rem;
   padding: 1rem;
   
-  @media(max-width: 629px) {
+  @media (max-width: 850px) {
     width: 100%;
+  }
+  @media (min-width: 850px) {
+    overflow: hidden;
+    max-width: 100%;
   }
 `;
 const Title = styled.h1`

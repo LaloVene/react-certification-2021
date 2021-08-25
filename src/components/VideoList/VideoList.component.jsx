@@ -91,12 +91,11 @@ const CheckIcon = styled(FaCheckCircle)`
   margin-right: 0.2rem;
 `;
 
-function VideoList(props) {
-
+function VideoList({ id, title, channelTitle, isRelated, thumbnail, isFav }) {
   return (
-    <Container isRelated={props.isRelated} role="video">
-      <RouterLink to={`/watch/${props.id}`}>
-        <Image src={props.thumbnail} alt='Video Thumbnail' />
+    <Container isRelated={isRelated} role="video">
+      <RouterLink to={`/${isFav ? 'fav-video' : 'watch'}/${id}`}>
+        <Image src={thumbnail} alt="Video Thumbnail" />
       </RouterLink>
       <VideoInfo>
         <ChannelImage
@@ -104,8 +103,11 @@ function VideoList(props) {
           href="user profile image"
         />
         <VideoText>
-          <Title>{props.title}</Title>
-          <ChannelTitle> <CheckIcon /> {props.channelTitle}</ChannelTitle>
+          <Title>{title}</Title>
+          <ChannelTitle>
+            {' '}
+            <CheckIcon /> {channelTitle}
+          </ChannelTitle>
         </VideoText>
       </VideoInfo>
     </Container>
