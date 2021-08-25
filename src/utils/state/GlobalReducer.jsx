@@ -4,6 +4,7 @@ export const initialState = {
   sideBar: true,
   currentTheme: theme.light,
   userData: {},
+  favorites: [],
 };
 
 const GlobalReducer = (state, action) => {
@@ -26,11 +27,32 @@ const GlobalReducer = (state, action) => {
     case "LOGOUT": {
       return { ...state, userData: {} };
     }
-    case "LOAD_FROM_STORAGE": {
-      const newThemeKey = JSON.parse(localStorage.getItem("theme")) || "light";
+    case "ADD_FAVORITE": {
+      if (state.favorites.includes(action.payload)) {
+        return { ...state };
+      }
+      const newFavorites = [...state.favorites, action.payload];
       return {
         ...state,
-        currentTheme: theme[newThemeKey]
+        favorites: newFavorites,
+      };
+    }
+    case "REMOVE_FAVORITE": {
+      const newFavorites = state.favorites.filter(
+        (favorite) => favorite.id !== action.payload
+      );
+      return {
+        ...state,
+        favorites: newFavorites,
+      };
+    }
+    case "LOAD_FROM_STORAGE": {
+      const newThemeKey = JSON.parse(localStorage.getItem("theme")) || "light";
+      const newFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+      return {
+        ...state,
+        currentTheme: theme[newThemeKey],
+        favorites: newFavorites,
       };
     }
     case "LOAD_FROM_SESSION_STORAGE": {

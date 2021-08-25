@@ -9,6 +9,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 15rem;
+  width: clamp(10rem, 100%, 15rem);
+  overflow: hidden;
   padding: ${props => props.isRelated ? '0.4rem 0;' : '1rem;'};
   @media(max-width: 629px) {
     width: 100%;

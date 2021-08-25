@@ -15,6 +15,7 @@ const dark = {
   primaryTextColor: 'white',
   secondaryTextColor: '#a0a0a0',
   navColor: 'indianred',
+  navColorDark: '#b45151',
   logo: logo_img_dark,
 };
 
@@ -25,6 +26,7 @@ const light = {
   primaryTextColor: 'black',
   secondaryTextColor: '#a0a0a0',
   navColor: 'lightcoral',
+  navColorDark: '#b45151',
   logo: logo_img,
 };
 

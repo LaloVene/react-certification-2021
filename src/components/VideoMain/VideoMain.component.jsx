@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { IoAdd } from 'react-icons/io5';
+import GlobalContext from '../../utils/state/GlobalContext';
 
 import VideoPlayer from '../../components/VideoPlayer';
 import Tag from '../../components/Tag';
+import Button from '../../components/Button';
 
 const Container = styled.div`
   width: 100%;
@@ -44,28 +47,51 @@ const TagTitle = styled.p`
 `;
 
 function VideoMain({video}) {
+  const { state, dispatch } = useContext(GlobalContext);
 
   const title = video.snippet.title;
   const id = video.id;
   const description = video.snippet.description;
   const tags = video.snippet.tags;
+  const thumbnail = video.snippet.thumbnails.medium.url;
+  const channelTitle = video.snippet.channelTitle;
+
+  const addToFavorites = () => {
+    const videoData = {
+      id,
+      title,
+      channelTitle,
+      thumbnail,
+    }
+    console.log('add to favorites', videoData);
+
+    if (state.favorites.find(video => video.id === videoData.id)) return;
+
+    let newFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    newFavorites = [...newFavorites, videoData];
+    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+
+    dispatch({type: "ADD_FAVORITE", payload: videoData});
+  }
 
   return (
     <Container>
       <VideoPlayer id={id} />
       <Title>{title}</Title>
+      <Button onClick={addToFavorites}> <IoAdd/> Add to Favorites</Button>
       <Description>{description}</Description>
-      {
-        tags &&
+      {tags && (
         <>
           <TagTitle>Tags</TagTitle>
           <TagContainer>
             {tags?.map((tag) => (
-              <Tag role="tag" key={tag}>{tag}</Tag>
+              <Tag role="tag" key={tag}>
+                {tag}
+              </Tag>
             ))}
           </TagContainer>
         </>
-      }
+      )}
     </Container>
   );
 }

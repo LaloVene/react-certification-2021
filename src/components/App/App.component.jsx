@@ -13,6 +13,7 @@ import SideBar from '../../components/SideBar';
 import HomeView from '../../pages/HomeView';
 import Video from '../../pages/Video';
 import Login from '../../pages/Login';
+import Favorites from '../../pages/Favorites';
 
 const Layout = styled.div`
   display: flex;
@@ -22,9 +23,10 @@ const Main = styled.div`
   width: 100%;
   border-radius: 0 0 1rem 1rem;
   background-color: ${props => props.theme.primaryBackgroundColor};
-  min-height: 85.5vh;
+  min-height: 100vh;
   
   @media (min-width: 1068px) {
+    min-height: 85.5vh;
     border-radius: 1rem;
     margin: 4rem 4rem 4rem 0;
     ${props => !props.sideBar && css`
@@ -74,6 +76,9 @@ function App() {
                         {...props}/>} />
                   <Route path="/login">
                     <Login />
+                  </Route>
+                  <Route path="/favorites">
+                    <Favorites />
                   </Route>
                   <Route path="*">
                     <NotFound />

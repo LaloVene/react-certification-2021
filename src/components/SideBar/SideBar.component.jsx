@@ -37,12 +37,6 @@ function SideBar() {
     localStorage.setItem('theme', JSON.stringify(theme));
     dispatch({ type: actionType });
   };
-  const goToLogin = () => {
-    history.push({
-      pathname: '/login',
-      search: ``,
-    });
-  };
   const logOut = () => {
     sessionStorage.removeItem('userData');
     dispatch({ type: 'LOGOUT' });
@@ -53,7 +47,7 @@ function SideBar() {
       id: 1,
       name: 'Login',
       icon: RiUserAddFill,
-      onClick: goToLogin,
+      onClick: () => history.push('/login'),
     },
   ];
 
@@ -67,6 +61,7 @@ function SideBar() {
       id: 2,
       name: 'Favorites',
       icon: TiStarFullOutline,
+      onClick: () => history.push('/favorites'),
     },
     {
       id: 3,
