@@ -14,6 +14,7 @@ import HomeView from '../../pages/HomeView';
 import Video from '../../pages/Video';
 import Login from '../../pages/Login';
 import Favorites from '../../pages/Favorites';
+import Private from '../../pages/Private';
 
 const Layout = styled.div`
   display: flex;
@@ -77,9 +78,9 @@ function App() {
                   <Route path="/login">
                     <Login />
                   </Route>
-                  <Route path="/favorites">
+                  <Private path="/favorites">
                     <Favorites />
-                  </Route>
+                  </Private>
                   <Route path="*">
                     <NotFound />
                   </Route>
