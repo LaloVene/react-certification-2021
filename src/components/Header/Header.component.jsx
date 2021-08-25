@@ -35,6 +35,7 @@ const Logo = styled.div`
   background-repeat: no-repeat;
   padding: 1.5rem;
   width: 8rem;
+  cursor: pointer;
 
   @media (max-width: 600px) {
     padding: 1rem;

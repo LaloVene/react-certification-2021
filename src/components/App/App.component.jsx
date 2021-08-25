@@ -12,6 +12,7 @@ import Header from '../../components/Header';
 import SideBar from '../../components/SideBar';
 import HomeView from '../../pages/HomeView';
 import Video from '../../pages/Video';
+import Login from '../../pages/Login';
 
 const Layout = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ const Main = styled.div`
   width: 100%;
   border-radius: 0 0 1rem 1rem;
   background-color: ${props => props.theme.primaryBackgroundColor};
-  /* min-height: 85.5vh; */
+  min-height: 85.5vh;
   
   @media (min-width: 1068px) {
     border-radius: 1rem;
@@ -40,6 +41,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'LOAD_FROM_STORAGE' });
+    dispatch({ type: 'LOAD_FROM_SESSION_STORAGE' });
   }, [dispatch]);
 
   return (
@@ -70,6 +72,9 @@ function App() {
                         isError={isError}
                         changeUrl={changeUrl}
                         {...props}/>} />
+                  <Route path="/login">
+                    <Login />
+                  </Route>
                   <Route path="*">
                     <NotFound />
                   </Route>

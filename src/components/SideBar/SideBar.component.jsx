@@ -1,8 +1,9 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import UserDetails from '../UserDetails/UserDetails.component';
 import SideBarOption from '../SideBarOption/SideBarOption.component';
-import GlobalContext from "../../utils/state/GlobalContext";
+import GlobalContext from '../../utils/state/GlobalContext';
+import { useHistory } from 'react-router-dom';
 
 // ICONS
 import { RiUser3Fill, RiUserSharedFill, RiUserAddFill } from 'react-icons/ri';
@@ -26,85 +27,114 @@ const Separator = styled.div`
   font-size: 1rem;
 `;
 
-const NoLoggedOptions = [
-  {
-    id: 1,
-    name: 'Login',
-    icon: RiUserAddFill,
-  },
-];
-
-const LoggedOptions = [
-  {
-    id: 1,
-    name: 'Profile',
-    icon: RiUser3Fill,
-  },
-  {
-    id: 2,
-    name: 'Favorites',
-    icon: TiStarFullOutline,
-  },
-  {
-    id: 3,
-    name: 'Logout',
-    icon: RiUserSharedFill,
-  },
-];
-
-
 function SideBar() {
-  const {state, dispatch} = useContext(GlobalContext);
+  const { state, dispatch } = useContext(GlobalContext);
+  const history = useHistory();
 
   const toggleDarkTheme = () => {
     const actionType = state.currentTheme.id === 'dark' ? 'LIGHT_THEME' : 'DARK_THEME';
     const theme = state.currentTheme.id === 'dark' ? 'light' : 'dark';
-    localStorage.setItem("theme", JSON.stringify(theme));
-    dispatch({type: actionType});
+    localStorage.setItem('theme', JSON.stringify(theme));
+    dispatch({ type: actionType });
+  };
+  const goToLogin = () => {
+    history.push({
+      pathname: '/login',
+      search: ``,
+    });
+  };
+  const logOut = () => {
+    sessionStorage.removeItem('userData');
+    dispatch({ type: 'LOGOUT' });
   };
 
+  const NoLoggedOptions = [
+    {
+      id: 1,
+      name: 'Login',
+      icon: RiUserAddFill,
+      onClick: goToLogin,
+    },
+  ];
+
+  const LoggedOptions = [
+    {
+      id: 1,
+      name: 'Profile',
+      icon: RiUser3Fill,
+    },
+    {
+      id: 2,
+      name: 'Favorites',
+      icon: TiStarFullOutline,
+    },
+    {
+      id: 3,
+      name: 'Logout',
+      icon: RiUserSharedFill,
+      onClick: logOut,
+    },
+  ];
+
   const Settings = [
-  {
-    id: 1,
-    name: state.currentTheme.id === 'dark' ? 'Dark Theme' : 'Light Theme',
-    icon: state.currentTheme.id === 'dark' ? IoMoon : IoSunnySharp,
-    onClick: toggleDarkTheme,
-  },
-  {
-    id: 2,
-    name: 'Settings',
-    icon: IoSettingsSharp,
-    onClick: () => {},
-  },
-];
+    {
+      id: 1,
+      name: state.currentTheme.id === 'dark' ? 'Dark Theme' : 'Light Theme',
+      icon: state.currentTheme.id === 'dark' ? IoMoon : IoSunnySharp,
+      onClick: toggleDarkTheme,
+    },
+    {
+      id: 2,
+      name: 'Settings',
+      icon: IoSettingsSharp,
+      onClick: () => {},
+    },
+  ];
 
   return (
     <>
-      {
-        state?.sideBar &&
+      {state?.sideBar && (
         <Container>
           <UserDetails />
           <Options data-testid="options">
-            {
-              NoLoggedOptions.map(option => (
-                <SideBarOption key={option.id} icon={option.icon}>{option.name}</SideBarOption>
-              ))
-            }
-            <Separator>•</Separator>
-            {
-              LoggedOptions.map(option => (
-                <SideBarOption key={option.id} icon={option.icon}>{option.name}</SideBarOption>
-              ))
-            }
-            <Separator>•</Separator>
-            {
-              Settings.map(option => (
-                <SideBarOption key={option.id} icon={option.icon} onClick={option.onClick}>{option.name}</SideBarOption>
-              ))
-            }
+            {!state?.userData?.id && (
+              <>
+                {NoLoggedOptions.map((option) => (
+                  <SideBarOption
+                    key={option.id}
+                    icon={option.icon}
+                    onClick={option.onClick}
+                  >
+                    {option.name}
+                  </SideBarOption>
+                ))}
+                <Separator>•</Separator>
+              </>
+            )}
+
+            {state?.userData?.id && (
+              <>
+                {LoggedOptions.map((option) => (
+                  <SideBarOption
+                    key={option.id}
+                    icon={option.icon}
+                    onClick={option.onClick}
+                  >
+                    {option.name}
+                  </SideBarOption>
+                ))}
+                <Separator>•</Separator>
+              </>
+            )}
+
+            {Settings.map((option) => (
+              <SideBarOption key={option.id} icon={option.icon} onClick={option.onClick}>
+                {option.name}
+              </SideBarOption>
+            ))}
           </Options>
         </Container>
-      }
+      )}
     </>
   );
 }
