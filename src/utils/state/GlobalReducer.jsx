@@ -15,6 +15,12 @@ const GlobalReducer = (state, action) => {
         sideBar: !state.sideBar,
       };
     }
+    case "HIDE_SIDEBAR": {
+      return {
+        ...state,
+        sideBar: false,
+      };
+    }
     case "LIGHT_THEME": {
       return { ...state, currentTheme: theme["light"] };
     }

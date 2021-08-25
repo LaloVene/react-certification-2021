@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import UserDetails from '../UserDetails/UserDetails.component';
 import SideBarOption from '../SideBarOption/SideBarOption.component';
@@ -11,8 +12,13 @@ import { TiStarFullOutline } from 'react-icons/ti';
 import { IoSettingsSharp, IoMoon, IoSunnySharp } from 'react-icons/io5';
 
 const Container = styled.div`
-  width: 20rem;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 15rem;
   padding: 2rem;
+  background: ${(props) => props.theme.secondaryBackgroundColor};
+  height: 100vh;
   @media (max-width: 1068px) {
     /* display: none; */
   }
@@ -30,6 +36,7 @@ const Separator = styled.div`
 function SideBar() {
   const { state, dispatch } = useContext(GlobalContext);
   const history = useHistory();
+  const modalRoot = document.getElementById('modal-root');
 
   const toggleDarkTheme = () => {
     const actionType = state.currentTheme.id === 'dark' ? 'LIGHT_THEME' : 'DARK_THEME';
@@ -86,7 +93,7 @@ function SideBar() {
     },
   ];
 
-  return (
+  return ReactDOM.createPortal(
     <>
       {state?.sideBar && (
         <Container>
@@ -130,7 +137,8 @@ function SideBar() {
           </Options>
         </Container>
       )}
-    </>
+    </>,
+    modalRoot
   );
 }
 

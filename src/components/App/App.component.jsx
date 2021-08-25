@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect} from 'react';
+import React, {useReducer, useEffect, useRef} from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import AuthProvider from '../../providers/Auth';
@@ -32,6 +32,7 @@ const Main = styled.div`
     min-height: 85.5vh;
     border-radius: 1rem;
     margin: 4rem 4rem 4rem 0;
+    margin-left: 15rem;
     ${(props) =>
       !props.sideBar &&
       css`
@@ -45,18 +46,32 @@ function App() {
   const [{ isLoading, isError, data }, changeUrl] = useVideos();
   const [ state, dispatch ] = useReducer(GlobalReducer, initialState);
   const { currentTheme } = state;
+  const menuRef = useRef()
 
   useEffect(() => {
     dispatch({ type: 'LOAD_FROM_STORAGE' });
     dispatch({ type: 'LOAD_FROM_SESSION_STORAGE' });
   }, [dispatch]);
 
+  // HIDE SIDEBAR IF SCREEN SMALL AND CLICK OUTSIDE
+  useEffect(() => {
+    let sideBarHandler = (event) => {
+      if (window.innerWidth < 1068 && menuRef.current.contains(event.target)) {
+        dispatch({ type: 'HIDE_SIDEBAR' });
+      }
+    }
+    document.addEventListener('mousedown', sideBarHandler);
+    return () => {
+      document.removeEventListener('mousedown', sideBarHandler);
+    }
+  });
+
   return (
     <BrowserRouter>
       <AuthProvider>
         <GlobalContext.Provider value={{ state, dispatch }}>
           <ThemeProvider theme={currentTheme}>
-            <Layout>
+            <Layout ref={menuRef}>
               <SideBar />
               <Main sideBar={state.sideBar}>
                 <Header changeUrl={changeUrl} />
