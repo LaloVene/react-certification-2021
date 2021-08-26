@@ -7,8 +7,8 @@ describe('<UserDetails />', () => {
 
   test('User Details are rendered', async () => {
     const { getAllByText } = await render(<UserDetails />);
-    const name = getAllByText('Example Name');
-    const email = getAllByText('example@example.com');
+    const name = getAllByText('Login');
+    const email = getAllByText('to improve the experience');
     expect(name).toBeDefined();
     expect(email).toBeDefined();
   });

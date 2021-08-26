@@ -1,0 +1,23 @@
+name: Test
+
+on:
+  # Trigger the workflow on pull request,
+  # but only for the main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  jest-test:
+    name: Jest test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install modules
+        run: yarn
+
+      - name: Run tests
+        run: yarn jest
