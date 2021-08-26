@@ -156,7 +156,7 @@ function VideoList({ id, title, channelTitle, isRelated, thumbnail, isFav, onCli
         </VideoText>
       </VideoInfo>
       {
-        state.useData?.id &&
+        state.userData?.id &&
         <FloatingButton onClick={isFav ? onClick : addToFavorites}>
           {isFav ? <MdDelete /> : <RiHeartAddFill />}
         </FloatingButton>
