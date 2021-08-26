@@ -5,7 +5,7 @@ on:
   # but only for the main branch
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   jest-test:
