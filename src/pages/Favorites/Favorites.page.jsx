@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import GlobalContext from '../../utils/state/GlobalContext';
-import { MdDelete } from 'react-icons/md';
 import VideoList from '../../components/VideoList';
-import Button from '../../components/Button';
 import NotFound from '../../pages/NotFound';
 
 const Container = styled.div`
@@ -67,9 +65,9 @@ function Favorites() {
                   title={title}
                   thumbnail={thumbnail}
                   channelTitle={channelTitle}
+                  onClick={() => removeFromFavorites(id)}
                   isFav
                 />
-                <Button onClick={() => removeFromFavorites(id)}> <MdDelete/> Remove</Button>
               </VideoContainer>
             );
           })}

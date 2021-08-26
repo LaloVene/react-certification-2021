@@ -54,10 +54,10 @@ function useVideos() {
     
     async function fetchData() {
       // For test purposes
-      // if (true) {
-      //   dispatch({ type: 'FETCH_SUCCESS', payload: Data });
-      //   return;
-      // }
+      if (true) {
+        dispatch({ type: 'FETCH_SUCCESS', payload: Data });
+        return;
+      }
       dispatch({ type: 'FETCH_INIT' });
       try {
         const response = await fetch(url);

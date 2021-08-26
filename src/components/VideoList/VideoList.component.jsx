@@ -1,19 +1,44 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
+import GlobalContext from '../../utils/state/GlobalContext';
 
 import { FaCheckCircle } from 'react-icons/fa';
+import { RiHeartAddFill } from 'react-icons/ri';
+import { MdDelete } from 'react-icons/md';
 
+const FloatingButton = styled.div`
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background: rgba(0, 0, 0, 0.2);
+  &:hover {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  color: white;
+`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   width: 15rem;
   width: clamp(10rem, 100%, 15rem);
   overflow: hidden;
-  padding: ${props => props.isRelated ? '0.4rem 0;' : '1rem;'};
-  @media(max-width: 629px) {
+  padding: ${(props) => (props.isRelated ? '0.4rem 0;' : '1rem;')};
+  @media (max-width: 629px) {
     width: 100%;
+  }
+  &:hover ${FloatingButton} {
+    display: inline-block;
   }
 `;
 const RouterLink = styled(Link)`
@@ -48,6 +73,7 @@ const ChannelImage = styled.img`
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.5rem;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
 
   &:hover {
@@ -91,7 +117,26 @@ const CheckIcon = styled(FaCheckCircle)`
   margin-right: 0.2rem;
 `;
 
-function VideoList({ id, title, channelTitle, isRelated, thumbnail, isFav }) {
+function VideoList({ id, title, channelTitle, isRelated, thumbnail, isFav, onClick }) {
+  const { state, dispatch } = useContext(GlobalContext);
+
+  const addToFavorites = () => {
+    const videoData = {
+      id,
+      title,
+      channelTitle,
+      thumbnail,
+    };
+
+    if (state.favorites.find((video) => video.id === videoData.id)) return;
+
+    let newFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    newFavorites = [...newFavorites, videoData];
+    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+
+    dispatch({ type: 'ADD_FAVORITE', payload: videoData });
+  };
+
   return (
     <Container isRelated={isRelated} role="video">
       <RouterLink to={`/${isFav ? 'fav-video' : 'watch'}/${id}`}>
@@ -110,6 +155,12 @@ function VideoList({ id, title, channelTitle, isRelated, thumbnail, isFav }) {
           </ChannelTitle>
         </VideoText>
       </VideoInfo>
+      {
+        state.useData.id &&
+        <FloatingButton onClick={isFav ? onClick : addToFavorites}>
+          {isFav ? <MdDelete /> : <RiHeartAddFill />}
+        </FloatingButton>
+      }
     </Container>
   );
 }

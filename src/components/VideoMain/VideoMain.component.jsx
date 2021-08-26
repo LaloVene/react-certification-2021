@@ -67,7 +67,6 @@ function VideoMain({video}) {
       channelTitle,
       thumbnail,
     }
-    console.log('add to favorites', videoData);
 
     if (state.favorites.find(video => video.id === videoData.id)) return;
 
@@ -82,7 +81,10 @@ function VideoMain({video}) {
     <Container>
       <VideoPlayer id={id} />
       <Title>{title}</Title>
-      <Button onClick={addToFavorites}> <IoAdd/> Add to Favorites</Button>
+      {
+        state.userData?.id &&
+        <Button onClick={addToFavorites}> <IoAdd/> Add to Favorites</Button>
+      }
       <Description>{description}</Description>
       {tags && (
         <>
