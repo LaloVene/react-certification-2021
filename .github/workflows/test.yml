@@ -21,3 +21,6 @@ jobs:
 
       - name: Run tests
         run: yarn jest
+
+      - name: Run es-lint
+        run: yarn lint
