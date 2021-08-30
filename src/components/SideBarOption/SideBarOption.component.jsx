@@ -10,22 +10,20 @@ const Element = styled.div`
   padding: 0.5rem;
 
   &:hover {
-    background-color: ${props => props.theme.primaryBackgroundColor};
+    background-color: ${(props) => props.theme.primaryBackgroundColor};
   }
 `;
 const Text = styled.p`
   margin: 0;
   margin-left: 0.5rem;
-  color: ${props => props.theme.secondaryTextColor};
+  color: ${(props) => props.theme.secondaryTextColor};
   font-weight: lighter;
 `;
 
-
-function SideBarOption({children, onClick, icon}) {
-
+function SideBarOption({ children, onClick, icon }) {
   const Icon = icon;
   const style = {
-    color: 'hsl(0, 0%, 75%)'
+    color: 'hsl(0, 0%, 75%)',
   };
 
   return (

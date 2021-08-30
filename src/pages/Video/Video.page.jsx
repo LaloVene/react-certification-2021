@@ -23,27 +23,27 @@ const Container = styled.div`
   }
 `;
 
-function VideoHome({match, changeUrl, videos}) {
-
+function VideoHome({ match, changeUrl, videos }) {
   const [{ isLoading, isError, data }, changeRelatedUrl] = useVideos();
 
   useEffect(() => {
     changeUrl(`&id=${match.params.id}`);
-  }, [changeUrl, match.params.id])
+  }, [changeUrl, match.params.id]);
   useEffect(() => {
-    changeRelatedUrl(`&relatedToVideoId=${match.params.id}`)
-  }, [changeRelatedUrl, match.params.id])
+    changeRelatedUrl(`&relatedToVideoId=${match.params.id}`);
+  }, [changeRelatedUrl, match.params.id]);
 
   return (
     <Container>
-      {
-        videos?.items &&
-        <VideoMain id={match.params.id} video={videos?.items[0]} isLoading={isLoading} isError={isError} />
-      }
-      {
-        data?.items &&
-        <RelatedVideos id={match.params.id} videos={data} />
-      }
+      {videos?.items && (
+        <VideoMain
+          id={match.params.id}
+          video={videos?.items[0]}
+          isLoading={isLoading}
+          isError={isError}
+        />
+      )}
+      {data?.items && <RelatedVideos id={match.params.id} videos={data} />}
     </Container>
   );
 }

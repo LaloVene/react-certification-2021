@@ -4,7 +4,6 @@ import { render } from '@testing-library/react';
 import UserDetails from './UserDetails.component';
 
 describe('<UserDetails />', () => {
-
   test('User Details are rendered', async () => {
     const { getAllByText } = await render(<UserDetails />);
     const name = getAllByText('Login');
@@ -18,5 +17,4 @@ describe('<UserDetails />', () => {
     const avatar = getByTestId('avatar');
     expect(avatar).toBeDefined();
   });
-
 });

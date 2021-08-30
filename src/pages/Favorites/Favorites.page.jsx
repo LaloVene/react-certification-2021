@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import GlobalContext from '../../utils/state/GlobalContext';
 import VideoList from '../../components/VideoList';
-import NotFound from '../../pages/NotFound';
+import NotFound from '../NotFound';
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const VideoListContainer = styled.div`
   margin: 0 auto;
   overflow: hidden;
   width: 100%;
-  `;
+`;
 const VideoContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@ function Favorites() {
     let newFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
     newFavorites = newFavorites.filter((favorite) => favorite.id !== id);
     localStorage.setItem('favorites', JSON.stringify(newFavorites));
-    dispatch({type: 'REMOVE_FAVORITE', payload: id,});
+    dispatch({ type: 'REMOVE_FAVORITE', payload: id });
   };
 
   return (

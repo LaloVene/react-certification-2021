@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import UserDetails from '../UserDetails/UserDetails.component';
-import SideBarOption from '../SideBarOption/SideBarOption.component';
-import GlobalContext from '../../utils/state/GlobalContext';
 import { useHistory } from 'react-router-dom';
 
 // ICONS
 import { RiUser3Fill, RiUserSharedFill, RiUserAddFill } from 'react-icons/ri';
 import { TiStarFullOutline } from 'react-icons/ti';
 import { IoSettingsSharp, IoMoon, IoSunnySharp } from 'react-icons/io5';
+import GlobalContext from '../../utils/state/GlobalContext';
+import SideBarOption from '../SideBarOption/SideBarOption.component';
+import UserDetails from '../UserDetails/UserDetails.component';
 
 const Container = styled.div`
   position: fixed;

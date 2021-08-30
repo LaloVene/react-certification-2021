@@ -6,8 +6,8 @@ const Input = styled.input`
   height: 30px;
   margin: 0;
   margin-left: 1rem;
-  background: ${props => props.theme.secondaryBackgroundColor};
-  color: ${props => props.theme.primaryTextColor};
+  background: ${(props) => props.theme.secondaryBackgroundColor};
+  color: ${(props) => props.theme.primaryTextColor};
   padding: 1rem;
   border-radius: 0.5rem;
   border: none;
@@ -15,9 +15,7 @@ const Input = styled.input`
 `;
 
 function SearchInput({ handleChange }) {
-  return (
-    <Input onChange={handleChange} placeholder="Search" type="text" />
-  );
+  return <Input onChange={handleChange} placeholder="Search" type="text" />;
 }
 
 export default SearchInput;

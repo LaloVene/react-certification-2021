@@ -7,8 +7,8 @@ const TEST_VIDEO_ID = '7hEPj13PUGc';
 
 describe('<VideoPlayer />', () => {
   test('VideoPlayer is rendered', async () => {
-    const { getByRole } = await render(<VideoPlayer id={TEST_VIDEO_ID}/>);
-    const iframe = getByRole('iframe');
+    const { getByTestId } = await render(<VideoPlayer id={TEST_VIDEO_ID} />);
+    const iframe = getByTestId('iframe');
     expect(iframe).toBeDefined();
   });
 });

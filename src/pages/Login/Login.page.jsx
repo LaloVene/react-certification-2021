@@ -48,7 +48,7 @@ function Login() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();

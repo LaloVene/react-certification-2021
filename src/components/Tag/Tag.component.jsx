@@ -14,11 +14,7 @@ const TagDiv = styled.div`
 `;
 
 function Tag(props) {
-  return (
-    <TagDiv role="tag">
-      {props.children}
-    </TagDiv>
-  );
+  return <TagDiv data-testid="tag">{props.children}</TagDiv>;
 }
 
 export default Tag;

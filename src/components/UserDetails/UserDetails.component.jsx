@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import GlobalContext from '../../utils/state/GlobalContext';
 
+const userPicture = require('../../img/default-user.png');
+
 const Name = styled.p`
   margin: 0;
   font-size: 1.5rem;
@@ -22,15 +24,15 @@ function UserDetails() {
   const { state } = useContext(GlobalContext);
 
   return (
-    <React.Fragment>
+    <>
       <Avatar
-        src={state?.userData?.avatarUrl || require('../../img/default-user.png')}
+        src={state?.userData?.avatarUrl || userPicture}
         href="user profile image"
         data-testid="avatar"
       />
       <Name>{state?.userData?.name || 'Login'}</Name>
-      <Email>{state?.userData?.email ||  'to improve the experience'}</Email>
-    </React.Fragment>
+      <Email>{state?.userData?.email || 'to improve the experience'}</Email>
+    </>
   );
 }
 

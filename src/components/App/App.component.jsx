@@ -1,15 +1,15 @@
-import React, {useReducer, useEffect, useRef} from 'react';
+import React, { useReducer, useEffect, useRef } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import styled, { css, ThemeProvider } from 'styled-components';
 import AuthProvider from '../../providers/Auth';
 import NotFound from '../../pages/NotFound';
-import styled, {css, ThemeProvider } from 'styled-components';
-import GlobalContext from "../../utils/state/GlobalContext";
-import GlobalReducer, {initialState} from "../../utils/state/GlobalReducer";
+import GlobalContext from '../../utils/state/GlobalContext';
+import GlobalReducer, { initialState } from '../../utils/state/GlobalReducer';
 import { useVideos } from '../../utils/hooks/useVideos';
 
-import Header from '../../components/Header';
-import SideBar from '../../components/SideBar';
+import Header from '../Header';
+import SideBar from '../SideBar';
 import HomeView from '../../pages/HomeView';
 import Video from '../../pages/Video';
 import Login from '../../pages/Login';
@@ -19,7 +19,7 @@ import Private from '../../pages/Private';
 
 const Layout = styled.div`
   display: flex;
-  background: ${props => props.theme.secondaryBackgroundColor};
+  background: ${(props) => props.theme.secondaryBackgroundColor};
 `;
 const Main = styled.div`
   width: 100%;
@@ -42,11 +42,10 @@ const Main = styled.div`
 `;
 
 function App() {
-
   const [{ isLoading, isError, data }, changeUrl] = useVideos();
-  const [ state, dispatch ] = useReducer(GlobalReducer, initialState);
+  const [state, dispatch] = useReducer(GlobalReducer, initialState);
   const { currentTheme } = state;
-  const menuRef = useRef()
+  const menuRef = useRef();
 
   useEffect(() => {
     const newThemeKey = JSON.parse(localStorage.getItem('theme')) || 'light';
@@ -58,15 +57,15 @@ function App() {
 
   // HIDE SIDEBAR IF SCREEN SMALL AND CLICK OUTSIDE
   useEffect(() => {
-    let sideBarHandler = (event) => {
+    const sideBarHandler = (event) => {
       if (window.innerWidth < 1068 && menuRef.current.contains(event.target)) {
         dispatch({ type: 'HIDE_SIDEBAR' });
       }
-    }
+    };
     document.addEventListener('mousedown', sideBarHandler);
     return () => {
       document.removeEventListener('mousedown', sideBarHandler);
-    }
+    };
   });
 
   return (

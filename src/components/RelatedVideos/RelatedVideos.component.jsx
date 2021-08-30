@@ -15,7 +15,7 @@ const Title = styled.p`
   font-weight: bold;
   margin: 0;
   margin-bottom: 0.5rem;
-  color: ${props => props.theme.primaryTextColor};
+  color: ${(props) => props.theme.primaryTextColor};
 `;
 const Videos = styled.div`
   display: flex;
@@ -24,39 +24,41 @@ const Videos = styled.div`
   align-items: center;
 `;
 
-function RelatedVideos({videos, isFav}) {
-
+function RelatedVideos({ videos, isFav }) {
   return (
     <Container>
       <Title>Up next</Title>
 
-        <Videos>
-          {videos?.items?.map((video) => {
-            let id, title, channelTitle, thumbnail;
+      <Videos>
+        {videos?.items?.map((video) => {
+          let id;
+          let title;
+          let channelTitle;
+          let thumbnail;
 
-            if (isFav) {
-              ({id, title, channelTitle, thumbnail} = video);
-            } else {
-              if (!video?.snippet?.title) return null;
-              id = video.id.videoId;
-              title = video.snippet.title;
-              channelTitle = video.snippet.channelTitle;
-              thumbnail = video.snippet.thumbnails.medium.url;
-            }
+          if (isFav) {
+            ({ id, title, channelTitle, thumbnail } = video);
+          } else {
+            if (!video?.snippet?.title) return null;
+            id = video.id.videoId;
+            title = video.snippet.title;
+            channelTitle = video.snippet.channelTitle;
+            thumbnail = video.snippet.thumbnails.medium.url;
+          }
 
-            return (
-              <VideoList
-                isRelated={true}
-                key={id}
-                id={id}
-                title={title}
-                thumbnail={thumbnail}
-                channelTitle={channelTitle}
-                isFav={isFav}
-              />
-            );
-          })}
-        </Videos>
+          return (
+            <VideoList
+              isRelated
+              key={id}
+              id={id}
+              title={title}
+              thumbnail={thumbnail}
+              channelTitle={channelTitle}
+              isFav={isFav}
+            />
+          );
+        })}
+      </Videos>
     </Container>
   );
 }

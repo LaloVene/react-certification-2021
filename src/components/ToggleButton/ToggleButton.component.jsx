@@ -14,11 +14,10 @@ const Toggle = styled.button`
 `;
 
 function ToggleButton(props) {
-
   const Icon = props.icon;
 
   return (
-    <Toggle role="toggle" onClick={props.onClick}>
+    <Toggle data-testid="toggle" onClick={props.onClick}>
       <Icon />
     </Toggle>
   );
