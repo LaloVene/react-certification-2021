@@ -8,16 +8,16 @@ import { useVideos } from '../../utils/hooks/useVideos';
 
 const Container = styled.div`
   width: 100%;
+  overflow: hidden;
   display: flex;
   height: 78vh;
-  /* height: 85.5vh; */
   overflow-y: auto;
   margin: 0 auto;
   @media (max-width: 1068px) {
     height: 91vh;
   }
   justify-content: center;
-  @media (max-width: 629px) {
+  @media (max-width: 850px) {
     flex-direction: column;
     justify-content: flex-start;
   }

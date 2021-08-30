@@ -1,5 +1,5 @@
 import { useState, useEffect, useReducer } from 'react';
-// import Data from '../../utils/related-videos.json'
+import Data from '../../utils/related-videos.json';
 
 const SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=20';
 const VIDEO_URL = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&type=video';
