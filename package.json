@@ -56,7 +56,7 @@
   },
   "lint-staged": {
     "*.{js, jsx, css, json}": [
-      "npm run lint:fix",
+      "yarn lint:fix",
       "pretty-quick --staged",
       "git add"
     ]
