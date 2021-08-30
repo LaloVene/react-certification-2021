@@ -53,19 +53,16 @@ const GlobalReducer = (state, action) => {
       };
     }
     case "LOAD_FROM_STORAGE": {
-      const newThemeKey = JSON.parse(localStorage.getItem("theme")) || "light";
-      const newFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
       return {
         ...state,
-        currentTheme: theme[newThemeKey],
-        favorites: newFavorites,
+        currentTheme: theme[action.theme],
+        favorites: action.favorites,
       };
     }
     case "LOAD_FROM_SESSION_STORAGE": {
-      const newUserData = JSON.parse(sessionStorage.getItem("userData")) || {};
       return {
         ...state,
-        userData: newUserData
+        userData: action.userData,
       };
     }
     default:

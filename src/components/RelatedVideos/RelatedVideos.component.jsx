@@ -32,21 +32,16 @@ function RelatedVideos({videos, isFav}) {
 
         <Videos>
           {videos?.items?.map((video) => {
-            let id = '';
-            let title = '';
-            let channelTitle = '';
-            let thumbnail = '';
+            let id, title, channelTitle, thumbnail;
+
             if (isFav) {
               ({id, title, channelTitle, thumbnail} = video);
             } else {
-              try {
-                id = video.id.videoId;
-                title = video.snippet.title;
-                channelTitle = video.snippet.channelTitle;
-                thumbnail = video.snippet.thumbnails.medium.url;
-              } catch {
-                return null;
-              }
+              if (!video?.snippet?.title) return null;
+              id = video.id.videoId;
+              title = video.snippet.title;
+              channelTitle = video.snippet.channelTitle;
+              thumbnail = video.snippet.thumbnails.medium.url;
             }
 
             return (

@@ -49,8 +49,11 @@ function App() {
   const menuRef = useRef()
 
   useEffect(() => {
-    dispatch({ type: 'LOAD_FROM_STORAGE' });
-    dispatch({ type: 'LOAD_FROM_SESSION_STORAGE' });
+    const newThemeKey = JSON.parse(localStorage.getItem('theme')) || 'light';
+    const newFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const newUserData = JSON.parse(sessionStorage.getItem('userData')) || {};
+    dispatch({ type: 'LOAD_FROM_STORAGE', theme: newThemeKey, favorites: newFavorites });
+    dispatch({ type: 'LOAD_FROM_SESSION_STORAGE', userData: newUserData });
   }, [dispatch]);
 
   // HIDE SIDEBAR IF SCREEN SMALL AND CLICK OUTSIDE
@@ -102,13 +105,13 @@ function App() {
                       />
                     )}
                   />
-                  <Route path="/login">
+                  <Route exact path="/login">
                     <Login />
                   </Route>
-                  <Private path="/favorites">
+                  <Private exact path="/favorites">
                     <Favorites />
                   </Private>
-                  <Private path="/fav-video/:id">
+                  <Private exact path="/fav-video/:id">
                     <FavoriteVideo
                       videos={data}
                       isLoading={isLoading}
