@@ -6,9 +6,6 @@ on:
   pull_request:
     branches:
       - master
-  push:
-    branches:
-      - feat/routing
 
 jobs:
   jest-test:
@@ -24,3 +21,6 @@ jobs:
 
       - name: Run tests
         run: yarn jest
+
+      - name: Run es-lint
+        run: yarn lint

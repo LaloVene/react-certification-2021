@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
-import SearchInput from '../SearchInput/SearchInput.component';
-import styled, {css} from 'styled-components';
-import GlobalContext from "../../utils/state/GlobalContext";
-import { useHistory } from "react-router-dom";
+import styled, { css } from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 // ICONS
 import { HiMenuAlt1 } from 'react-icons/hi';
 import { BiSearchAlt } from 'react-icons/bi';
 import { IoClose, IoSearchCircleSharp } from 'react-icons/io5';
+import GlobalContext from '../../utils/state/GlobalContext';
+import SearchInput from '../SearchInput/SearchInput.component';
 import ToggleButton from '../ToggleButton/ToggleButton.component';
 
 const Container = styled.div`
@@ -29,7 +29,7 @@ const Container = styled.div`
 `;
 
 const Logo = styled.div`
-  background-image: url(${props => props.theme.logo});
+  background-image: url(${(props) => props.theme.logo});
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -40,21 +40,25 @@ const Logo = styled.div`
   @media (max-width: 600px) {
     padding: 1rem;
   }
-  ${props => props.isSearch && css`
-    @media (max-width: 600px) {
-      display: none;
-    }
-  `};
+  ${(props) =>
+    props.isSearch &&
+    css`
+      @media (max-width: 600px) {
+        display: none;
+      }
+    `};
 `;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${props => props.isSearch && css`
-    width: 100%;
-    max-width: 30rem;
+  ${(props) =>
+    props.isSearch &&
+    css`
+      width: 100%;
+      max-width: 30rem;
     `};
-    `;
+`;
 const SearchContainer = styled.form`
   display: flex;
   align-items: center;
@@ -63,33 +67,34 @@ const SearchContainer = styled.form`
 `;
 
 function Header(props) {
-
-  const {dispatch} = useContext(GlobalContext);
+  const { dispatch } = useContext(GlobalContext);
   const [isSearch, setIsSearch] = useState(false);
   const [searchText, setSearchText] = useState(null);
   const history = useHistory();
 
-  const toggleSearch = () => {setIsSearch(!isSearch)};
+  const toggleSearch = () => {
+    setIsSearch(!isSearch);
+  };
   const handleChange = (event) => setSearchText(event.target.value);
-  
+
   const search = (event) => {
     event.preventDefault();
     if (!searchText) return;
     history.push({
       pathname: '/',
-      search: `?q=${encodeURIComponent(searchText)}`
-    })
+      search: `?q=${encodeURIComponent(searchText)}`,
+    });
     props.changeUrl(`&q=${searchText}`);
   };
 
   const toggleSideBar = () => {
-    dispatch({type: 'TOGGLE_SIDEBAR'});
+    dispatch({ type: 'TOGGLE_SIDEBAR' });
   };
   const goHome = () => {
     history.push({
       pathname: '/',
-      search: ``
-    })
+      search: ``,
+    });
   };
 
   return (
@@ -98,12 +103,12 @@ function Header(props) {
       <Logo onClick={goHome} isSearch={isSearch} data-testid="logo" />
       <Wrapper isSearch={isSearch}>
         <SearchContainer onSubmit={search}>
-          {isSearch &&
+          {isSearch && (
             <>
-              <SearchInput handleChange={handleChange}/>
-              <ToggleButton onClick={search} icon={IoSearchCircleSharp}/>
+              <SearchInput handleChange={handleChange} />
+              <ToggleButton onClick={search} icon={IoSearchCircleSharp} />
             </>
-          }
+          )}
         </SearchContainer>
         <ToggleButton onClick={toggleSearch} icon={isSearch ? IoClose : BiSearchAlt} />
       </Wrapper>

@@ -1,4 +1,4 @@
-import { theme } from "../theme/theme";
+import { theme } from '../theme/theme';
 
 export const initialState = {
   sideBar: true,
@@ -9,31 +9,31 @@ export const initialState = {
 
 const GlobalReducer = (state, action) => {
   switch (action.type) {
-    case "TOGGLE_SIDEBAR": {
+    case 'TOGGLE_SIDEBAR': {
       return {
         ...state,
         sideBar: !state.sideBar,
       };
     }
-    case "HIDE_SIDEBAR": {
+    case 'HIDE_SIDEBAR': {
       return {
         ...state,
         sideBar: false,
       };
     }
-    case "LIGHT_THEME": {
-      return { ...state, currentTheme: theme["light"] };
+    case 'LIGHT_THEME': {
+      return { ...state, currentTheme: theme.light };
     }
-    case "DARK_THEME": {
-      return { ...state, currentTheme: theme["dark"] };
+    case 'DARK_THEME': {
+      return { ...state, currentTheme: theme.dark };
     }
-    case "LOGIN": {
+    case 'LOGIN': {
       return { ...state, userData: action.payload };
     }
-    case "LOGOUT": {
+    case 'LOGOUT': {
       return { ...state, userData: {} };
     }
-    case "ADD_FAVORITE": {
+    case 'ADD_FAVORITE': {
       if (state.favorites.includes(action.payload)) {
         return { ...state };
       }
@@ -43,7 +43,7 @@ const GlobalReducer = (state, action) => {
         favorites: newFavorites,
       };
     }
-    case "REMOVE_FAVORITE": {
+    case 'REMOVE_FAVORITE': {
       const newFavorites = state.favorites.filter(
         (favorite) => favorite.id !== action.payload
       );
@@ -52,20 +52,17 @@ const GlobalReducer = (state, action) => {
         favorites: newFavorites,
       };
     }
-    case "LOAD_FROM_STORAGE": {
-      const newThemeKey = JSON.parse(localStorage.getItem("theme")) || "light";
-      const newFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    case 'LOAD_FROM_STORAGE': {
       return {
         ...state,
-        currentTheme: theme[newThemeKey],
-        favorites: newFavorites,
+        currentTheme: theme[action.theme],
+        favorites: action.favorites,
       };
     }
-    case "LOAD_FROM_SESSION_STORAGE": {
-      const newUserData = JSON.parse(sessionStorage.getItem("userData")) || {};
+    case 'LOAD_FROM_SESSION_STORAGE': {
       return {
         ...state,
-        userData: newUserData
+        userData: action.userData,
       };
     }
     default:

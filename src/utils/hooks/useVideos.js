@@ -1,7 +1,8 @@
 import { useState, useEffect, useReducer } from 'react';
-import Data from '../../utils/related-videos.json';
+// import Data from '../../utils/related-videos.json';
 
-const SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=20';
+const SEARCH_URL =
+  'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=20';
 const VIDEO_URL = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&type=video';
 const API_KEY = process.env.REACT_APP_YOUTUBE_KEY;
 
@@ -9,20 +10,6 @@ function useVideos() {
   const searchUrl = `${SEARCH_URL}&key=${API_KEY}`;
   const videoUrl = `${VIDEO_URL}&key=${API_KEY}`;
   const [url, setUrl] = useState(searchUrl);
-
-  const [state, dispatch] = useReducer(dataFetchReducer, {
-    isLoading: false,
-    isError: false,
-    data: null,
-  });
-
-  const changeUrl = (params) => {
-    if (params.includes('&id=')) {
-      setUrl(videoUrl + params);
-    } else {
-      setUrl(searchUrl + params);
-    }
-  }
 
   function dataFetchReducer(state, action) {
     switch (action.type) {
@@ -37,7 +24,7 @@ function useVideos() {
           ...state,
           isLoading: false,
           isError: false,
-          data: {...action.payload},
+          data: { ...action.payload },
         };
       case 'FETCH_FAILURE':
         return {
@@ -50,8 +37,21 @@ function useVideos() {
     }
   }
 
+  const [state, dispatch] = useReducer(dataFetchReducer, {
+    isLoading: false,
+    isError: false,
+    data: null,
+  });
+
+  const changeUrl = (params) => {
+    if (params.includes('&id=')) {
+      setUrl(videoUrl + params);
+    } else {
+      setUrl(searchUrl + params);
+    }
+  };
+
   useEffect(() => {
-    
     async function fetchData() {
       // For test purposes
       // if (true) {
@@ -69,7 +69,7 @@ function useVideos() {
       }
     }
 
-    if ( url !== searchUrl ) fetchData();
+    if (url !== searchUrl) fetchData();
   }, [url, searchUrl]);
 
   return [state, changeUrl];

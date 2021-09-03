@@ -25,9 +25,7 @@ const Button = styled.button`
 `;
 
 function Input({ children, onClick }) {
-  return (
-    <Button onClick={onClick}>{children}</Button>
-  );
+  return <Button onClick={onClick}>{children}</Button>;
 }
 
 export default Input;

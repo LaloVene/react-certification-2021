@@ -1,11 +1,12 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
-import GlobalContext from '../../utils/state/GlobalContext';
-
+import { Link } from 'react-router-dom';
 import { FaCheckCircle } from 'react-icons/fa';
 import { RiHeartAddFill } from 'react-icons/ri';
 import { MdDelete } from 'react-icons/md';
+import GlobalContext from '../../utils/state/GlobalContext';
+
+const logo = require('../../img/default-user.png');
 
 const FloatingButton = styled.div`
   display: none;
@@ -95,7 +96,7 @@ const Title = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: ${props => props.theme.primaryTextColor};
+  color: ${(props) => props.theme.primaryTextColor};
 `;
 const ChannelTitle = styled.p`
   margin: 0;
@@ -109,7 +110,7 @@ const ChannelTitle = styled.p`
   align-items: center;
   text-overflow: ellipsis;
   max-inline-size: 12.8rem;
-  color: ${props => props.theme.secondaryTextColor};
+  color: ${(props) => props.theme.secondaryTextColor};
 `;
 const CheckIcon = styled(FaCheckCircle)`
   color: #c70d32;
@@ -138,15 +139,12 @@ function VideoList({ id, title, channelTitle, isRelated, thumbnail, isFav, onCli
   };
 
   return (
-    <Container isRelated={isRelated} role="video">
+    <Container isRelated={isRelated} data-testid="video">
       <RouterLink to={`/${isFav ? 'fav-video' : 'watch'}/${id}`}>
         <Image src={thumbnail} alt="Video Thumbnail" />
       </RouterLink>
       <VideoInfo>
-        <ChannelImage
-          src={require('../../img/default-user.png')}
-          href="user profile image"
-        />
+        <ChannelImage src={logo} href="user profile image" />
         <VideoText>
           <Title>{title}</Title>
           <ChannelTitle>
@@ -155,12 +153,11 @@ function VideoList({ id, title, channelTitle, isRelated, thumbnail, isFav, onCli
           </ChannelTitle>
         </VideoText>
       </VideoInfo>
-      {
-        state.userData?.id &&
+      {state.userData?.id && (
         <FloatingButton onClick={isFav ? onClick : addToFavorites}>
           {isFav ? <MdDelete /> : <RiHeartAddFill />}
         </FloatingButton>
-      }
+      )}
     </Container>
   );
 }

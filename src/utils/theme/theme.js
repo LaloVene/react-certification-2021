@@ -1,5 +1,5 @@
-const logo_img = require('../../img/youtube-logo.png');
-const logo_img_dark = require('../../img/youtube-logo-dark.png');
+const logoImg = require('../../img/youtube-logo.png');
+const logoImgDark = require('../../img/youtube-logo-dark.png');
 
 const base = {
   easeOutBack: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -16,7 +16,7 @@ const dark = {
   secondaryTextColor: '#a0a0a0',
   navColor: 'indianred',
   navColorDark: '#b45151',
-  logo: logo_img_dark,
+  logo: logoImgDark,
 };
 
 const light = {
@@ -27,7 +27,7 @@ const light = {
   secondaryTextColor: '#a0a0a0',
   navColor: 'lightcoral',
   navColorDark: '#b45151',
-  logo: logo_img,
+  logo: logoImg,
 };
 
 export const theme = { dark, light };

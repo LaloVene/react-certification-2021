@@ -25,14 +25,14 @@ const Container = styled.div`
   }
 `;
 
-function FavoriteVideo({changeUrl, videos}) {
+function FavoriteVideo({ changeUrl, videos }) {
   const { state } = useContext(GlobalContext);
   const [{ isLoading, isError }] = useVideos();
   const { id } = useParams();
 
   useEffect(() => {
     changeUrl(`&id=${id}`);
-  }, [changeUrl, id])
+  }, [changeUrl, id]);
 
   return (
     <Container>
